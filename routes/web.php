@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardIbmController;
 use App\Http\Controllers\IbmController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [IbmController::class, 'index']);
+Route::resource('/dashboard/ibm', DashboardIbmController::class);
+// Route::get('/dashboard', function() {
+//     return view('dashboard.dashboardibm.index');
+// });
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

@@ -2,18 +2,31 @@
     <div class="position-sticky pt-3 sidebar-sticky">
       <ul class="nav flex-column">
         <li class="nav-item">
-          <a class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" aria-current="page" href="/dashboard">
+          <a class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" aria-current="page" href="/dashboard/ibm">
             <span data-feather="home" class="align-text-bottom"></span>
             Dashboard
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ Request::is('dashboard/posts*') ? 'active' : '' }}" href="/dashboard/posts">
+          <a class="nav-link {{ Request::is('dashboard/ibm*') ? 'active' : '' }}" href="/dashboard/ibm">
             <span data-feather="file-text" class="align-text-bottom"></span>
-            My Posts
+            IBM
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{ Request::is('dashboard/diskusi*') ? 'active' : '' }}" href="/dashboard/diskusi">
+            <span data-feather="file-text" class="align-text-bottom"></span>
+            Diskusi
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{ Request::is('dashboard/komentar*') ? 'active' : '' }}" href="/dashboard/komentar">
+            <span data-feather="file-text" class="align-text-bottom"></span>
+            Komentar
           </a>
         </li>
       </ul>
+      
 
       @can('admin')    
       <h5 class="sidebar-heading d-flex justify-content-beetwen align-items-center px-3 mt-4 mb-1 text-muted">

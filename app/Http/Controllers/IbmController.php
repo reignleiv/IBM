@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ibm;
+use App\Models\Ibm;
 use Illuminate\Http\Request;
 
 class IbmController extends Controller
@@ -14,6 +14,6 @@ class IbmController extends Controller
      */
     public function index()
     {
-        return view('ibm');
+        
     }
 }
