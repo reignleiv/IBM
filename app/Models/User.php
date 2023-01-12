@@ -17,11 +17,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,4 +37,31 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function scopeFilter($query, array $filter)
+    {
+
+        $query->when($filter['search'] ??  false, function ($query, $search) {
+            return $query->where(function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('username', 'like', '%' . $search . '%');
+            });
+        });
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'id';
+    }
+
+
+    public function diskusi()
+    {
+        return $this->hasMany(Diskusi::class);
+    }
+
+    public function komentar()
+    {
+        return $this->hasMany(Komentar::class);
+    }
 }

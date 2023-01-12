@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Ibm;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,5 +23,7 @@ class DatabaseSeeder extends Seeder
             'satuan' => '1 KG',
             'harga' => '100000'
         ]);
+
+        User::factory(5)->create();
     }
 }
