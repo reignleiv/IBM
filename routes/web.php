@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\DashboardIbmController;
-use App\Http\Controllers\DashboardUserController;
+use App\Http\Controllers\DiskusiController;
 use App\Http\Controllers\IbmController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UserController;
+use App\Models\Diskusi;
+use App\Models\Ibm;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,12 +21,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [IbmController::class, 'index']);
-Route::resource('/dashboard/ibm', DashboardIbmController::class);
-Route::resource('/dashboard/user', DashboardUserController::class);
-// Route::get('/dashboard', function() {
-//     return view('dashboard.dashboardibm.index');
-// });
+Route::resource('/dashboard/ibm', IbmController::class);
+Route::get('/dashboard/ibm', function() {
+    return view('dashboard.dashboardibm.index', [
+        'active' => 'ibm',
+        "title" => "Semua Informasi Bahan Makanan",
+        "ibms" => Ibm::all()
+    ]);
+});
+Route::get('/diskusi', [DiskusiController::class, 'index']);
+// halaman single diskusi
+Route::get('/diskusi{diskusi:slug}', [DiskusiController::class, 'show']);
+Route::resource('/dashboard/diskusi', DiskusiController::class);
+Route::get('/dashboard/diskusi', function() {
+    return view('dashboard.diskusi.index', [
+        'active' => 'diskusi',
+        "title" => "Semua Informasi Diskusi",
+        "diskusis" => Diskusi::all()
+    ]);
+});
 
+Route::resource('/dashboard/user', UserController::class);
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth'])->name('dashboard');

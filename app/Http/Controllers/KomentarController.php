@@ -50,28 +50,7 @@ class KomentarController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Komentar  $komentar
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Komentar $komentar)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateKomentarRequest  $request
-     * @param  \App\Models\Komentar  $komentar
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateKomentarRequest $request, Komentar $komentar)
-    {
-        //
-    }
+    
 
     /**
      * Remove the specified resource from storage.

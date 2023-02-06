@@ -15,7 +15,16 @@ class DiskusiController extends Controller
      */
     public function index()
     {
-        //
+        // $ibm = Diskusi::all();
+        // if (request('lokasi')) {
+        //     $ibm = Diskusi::all()->where('lokasi', 'like', request('lokasi'));
+        // }
+
+        return view('diskusi', [
+            'active' => 'Diskusi',
+            "title" => "Diskusi",
+            "diskusis" =>  Diskusi::all()
+        ]);
     }
 
     /**

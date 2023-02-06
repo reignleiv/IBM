@@ -18,8 +18,6 @@ class CreateKomentarsTable extends Migration
             $table->foreignId('user_id');
             $table->foreignId('diskusi_id');
             $table->string('title');
-            $table->string('slug')->unique();
-            $table->text('excerpt');
             $table->text('body');
             $table->timestamps();
         });

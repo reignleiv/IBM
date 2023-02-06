@@ -11,6 +11,11 @@ class Ibm extends Model
 
     protected $guarded = ['id'];
 
+    public function scopeFilter($query, array $filter)
+    {
+        
+    }
+
     public function getRouteKeyName()
     {
         return 'slug';
