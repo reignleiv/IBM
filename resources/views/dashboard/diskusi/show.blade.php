@@ -36,41 +36,75 @@
             <textarea id="comment-text" placeholder="Write a comment..."></textarea>
             <button type="submit">Komentar</button>
         </form>
+        
+        <div id="comment-wrapper">
+            @foreach ($komentars as $komentar)
+                <div id="comments-list" style="margin-bottom: 5px;">
+                <table>
+                    <tr>
+                        <td>   
+                                <b>
+                                    {{$komentar->user->name}}
+                                </b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{$komentar->body}}
+                        </td>
+                    </tr>
+                </table>
+                </div>
+                @endforeach
+            </div>
+        </div>
+        
+    <script>
+        $(document).ready(function() {
+            $('form').submit(function(e) {
+                e.preventDefault();
+                var comment = $('#comment-text').val();
+                var currentDiskusId = "{{$diskusis->id}}"
+                
+                
 
-        @foreach ($komentars as $komentar)
-        <div id="comments-list" style="margin-bottom: 5px;">
+                $.ajax({
+                    url: '{{url("/dashboard/komentar")}}',
+                    type: 'POST',
+                    headers: ({
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }),
+                    data: {
+                        user_id : {{Auth::user()->id }} , // get user id
+                        body: comment , // get user comen
+                        diskusi_id : currentDiskusId, //get current diskusi_id
+                    },
+                    success: function(data) {
+                        $('#comment-wrapper').append(`
+                        <div id="comments-list" style="margin-bottom: 5px;">
            <table>
                <tr>
-                   <td>
+                   <td>   
                         <b>
-                            {{$komentar->user->name}}
+                            {{Auth::user()->name}}
                         </b>
                    </td>
                </tr>
                <tr>
                    <td>
-                       {{$komentar->body}}
+                    `+data.data["body"]+`
                    </td>
                </tr>
            </table>
         </div>
-        @endforeach
-    </div>
-    <script>
-        $(document).ready(function() {
-            $('form').submit(function(e) {
-                e.preventDefault();
-                var comment = $('#comment').val();
-
-                $.ajax({
-                    url: 'KomentarController.php',
-                    type: 'post',
-                    data: {
-                        comment: comment
+                        
+                        
+                        `);
+                        $('#comment-text').val('');
+                        console.log(data)
                     },
-                    success: function(data) {
-                        $('#all-comments').prepend(data);
-                        $('#comment').val('');
+                    error: function(err){
+                        console.log(err)
                     }
                 });
             });

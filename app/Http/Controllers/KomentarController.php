@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Komentar;
 use App\Http\Requests\StoreKomentarRequest;
 use App\Http\Requests\UpdateKomentarRequest;
+use Log;
 
 class KomentarController extends Controller
 {
@@ -21,7 +22,7 @@ class KomentarController extends Controller
         return view('komentar', [
             'active' => 'Komentar',
             "title" => "Informasi Komentar",
-            "komentars" =>  Komentar::all()
+            "komentars" => Komentar::all()
         ]);
     }
 
@@ -30,7 +31,7 @@ class KomentarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(StoreKomentarRequest $request)
     {
         //
     }
@@ -43,7 +44,10 @@ class KomentarController extends Controller
      */
     public function store(StoreKomentarRequest $request)
     {
-        //
+        $input = $request->all();
+        Log::info($input);
+        Komentar::create($input);
+        return response()->json(['data' => $input]);
     }
 
     /**
