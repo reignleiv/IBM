@@ -36,28 +36,25 @@
             <textarea id="comment-text" placeholder="Write a comment..."></textarea>
             <button type="submit">Komentar</button>
         </form>
-        <div id="comments-list">
-            <tbody>
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $komentar->body }}</td>
-                    <td>
-                        <a class="nav-link badge bg-info" href="/dashboard/diskusi/{{ $komentar->id }}"><span
-                                data-feather="eye"></span>
-                        </a>
-                        <a class="badge bg-warning" href="/dashboard/diskusi/{{ $komentar->id }}/edit"><span
-                                data-feather="edit"></span>
-                        </a>
-                        <form action="/dashboard/diskusi/{{ $komentar->id }}" method="post" class="d-inline">
-                            @method('delete')
-                            @csrf
-                            <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><span
-                                    data-feather="x-circle"></span></button>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
+
+        @foreach ($komentars as $komentar)
+        <div id="comments-list" style="margin-bottom: 5px;">
+           <table>
+               <tr>
+                   <td>
+                        <b>
+                            {{$komentar->user->name}}
+                        </b>
+                   </td>
+               </tr>
+               <tr>
+                   <td>
+                       {{$komentar->body}}
+                   </td>
+               </tr>
+           </table>
         </div>
+        @endforeach
     </div>
     <script>
         $(document).ready(function() {

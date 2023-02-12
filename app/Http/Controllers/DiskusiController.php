@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Models\Diskusi;
+use App\Models\Komentar;
 use App\Http\Requests\StoreDiskusiRequest;
 use App\Http\Requests\UpdateDiskusiRequest;
+use Illuminate\Database\Eloquent\Builder;
 
 
 class DiskusiController extends Controller
@@ -28,7 +30,7 @@ class DiskusiController extends Controller
         return view('diskusi', [
             'active' => 'Diskusi',
             "title" => "Diskusi",
-            "diskusis" =>  Diskusi::all()
+            "diskusis" => Diskusi::all()
         ]);
     }
 
@@ -73,12 +75,17 @@ class DiskusiController extends Controller
      * @param  \App\Models\Diskusi  $diskusi
      * @return \Illuminate\Http\Response
      */
-    public function show(Diskusi $diskusi)
+    public function show(Diskusi $diskusi, Komentar $komentar)
     {
+        // Diskusi::where('id', $diskusi->id)
+        //     ->update($validatedData);
+
+
         return view('dashboard.diskusi.show', [
             'active' => 'diskusi',
             "title" => 'Postingan',
-            "diskusis" => $diskusi
+            "diskusis" => $diskusi,
+            'komentars' => Komentar::where('diskusi_id', $diskusi->id)->get(),
         ]);
     }
 
