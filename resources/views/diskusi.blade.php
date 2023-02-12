@@ -10,7 +10,6 @@
             </p>
             <p>{{ $diskusi->excerpt }}</p>
             <a href="/dashboard/diskusi/{{ $diskusi->id }}" class="text-decoration-none">Read more</a>
-
         </article>
     @endforeach
 @endsection

@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\DiskusiController;
 use App\Http\Controllers\IbmController;
+use App\Http\Controllers\KomentarController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
 use App\Models\Diskusi;
 use App\Models\Ibm;
+use App\Models\Komentar;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -57,4 +59,16 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');;
 Route::post('/register', [RegisterController::class, 'store']);
 
+
+Route::get('/komentar', [KomentarController::class, 'index']);
+// halaman single diskusi
+Route::get('/komentar{komentar:slug}', [KomentarController::class, 'show']);
+Route::resource('/dashboard/komentar', KomentarController::class);
+Route::get('/dashboard/komentar', function () {
+    return view('dashboard.komentar.index', [
+        'active' => 'komentar',
+        "title" => "Komentar",
+        "komentars" => Komentar::all()
+    ]);
+});
 // require __DIR__.'/auth.php';

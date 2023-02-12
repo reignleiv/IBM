@@ -30,27 +30,53 @@
             </div>
         </div>
     </div>
-    <div id="disqus_thread"></div>
+    <div class="comments">
+        <h3>Comments</h3>
+        <form id="comment-form">
+            <textarea id="comment-text" placeholder="Write a comment..."></textarea>
+            <button type="submit">Komentar</button>
+        </form>
+        <div id="comments-list">
+            <tbody>
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $komentar->body }}</td>
+                    <td>
+                        <a class="nav-link badge bg-info" href="/dashboard/diskusi/{{ $komentar->id }}"><span
+                                data-feather="eye"></span>
+                        </a>
+                        <a class="badge bg-warning" href="/dashboard/diskusi/{{ $komentar->id }}/edit"><span
+                                data-feather="edit"></span>
+                        </a>
+                        <form action="/dashboard/diskusi/{{ $komentar->id }}" method="post" class="d-inline">
+                            @method('delete')
+                            @csrf
+                            <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><span
+                                    data-feather="x-circle"></span></button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </div>
+    </div>
     <script>
-        /**
-         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-        /*
-        var disqus_config = function () {
-        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-        };
-        */
-        (function() { // DON'T EDIT BELOW THIS LINE
-            var d = document,
-                s = d.createElement('script');
-            s.src = 'https://ibm-2.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-        })
-        ();
+        $(document).ready(function() {
+            $('form').submit(function(e) {
+                e.preventDefault();
+                var comment = $('#comment').val();
+
+                $.ajax({
+                    url: 'KomentarController.php',
+                    type: 'post',
+                    data: {
+                        comment: comment
+                    },
+                    success: function(data) {
+                        $('#all-comments').prepend(data);
+                        $('#comment').val('');
+                    }
+                });
+            });
+        });
     </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
-            Disqus.</a></noscript>
-    <script id="dsq-count-scr" src="//ibm-2.disqus.com/count.js" async></script>
 @endsection
