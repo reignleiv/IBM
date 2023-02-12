@@ -75,7 +75,11 @@ class DiskusiController extends Controller
      */
     public function show(Diskusi $diskusi)
     {
-        //
+        return view('dashboard.diskusi.show', [
+            'active' => 'diskusi',
+            "title" => 'Postingan',
+            "diskusis" => $diskusi
+        ]);
     }
 
     /**

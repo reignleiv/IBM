@@ -31,7 +31,8 @@
                         <td>{{ $diskusi->slug }}</td>
                         <td>{{ $diskusi->body }}</td>
                         <td>
-                            <a class="nav-link badge bg-info" href="//{{ $diskusi->id }}"><span data-feather="eye"></span>
+                            <a class="nav-link badge bg-info" href="/dashboard/diskusi/{{ $diskusi->id }}"><span
+                                    data-feather="eye"></span>
                             </a>
                             <a class="badge bg-warning" href="/dashboard/diskusi/{{ $diskusi->id }}/edit"><span
                                     data-feather="edit"></span>
