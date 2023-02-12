@@ -15,7 +15,14 @@ class KomentarController extends Controller
      */
     public function index()
     {
-        //
+        // $komentar = Komentar::orderBy('created_at', 'DESC')->paginate(10);
+        // return view('welcome', compact('posts'));
+
+        return view('komentar', [
+            'active' => 'Komentar',
+            "title" => "Informasi Komentar",
+            "komentars" =>  Komentar::all()
+        ]);
     }
 
     /**
@@ -47,10 +54,17 @@ class KomentarController extends Controller
      */
     public function show(Komentar $komentar)
     {
-        //
+        // $komentar = Komentar::with(['comments', 'comments.child'])->where('slug', $komentar)->first();
+        // return view('show', compact('komentar'));\
+
+        return view('dashboard.komentar.show', [
+            'active' => 'diskusi',
+            "title" => 'Postingan',
+            "komentars" => $komentar
+        ]);
     }
 
-    
+
 
     /**
      * Remove the specified resource from storage.
