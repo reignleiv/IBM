@@ -14,7 +14,7 @@ class IbmController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $ibm = Ibm::all();
         if (request('lokasi')) {
             $ibm = Ibm::all()->where('lokasi', 'like', request('lokasi'));
@@ -35,8 +35,8 @@ class IbmController extends Controller
     public function create()
     {
         return view('dashboard.dashboardibm.create', [
-        'active' => 'ibm',
-        "title" => "Tambah Informasi Bahan Makanan"     
+            'active' => 'ibm',
+            "title" => "Tambah Informasi Bahan Makanan"
         ]);
     }
 
@@ -57,15 +57,13 @@ class IbmController extends Controller
         ]);
 
         //$validatedData['user_id'] = auth()->user()->id;
-
-
         Ibm::create($validatedData);
 
         return redirect('/')->with('success', 'Informasi Baru Telah Ditambahkan');
 
         // // menyimpan data file yang diupload ke variabel $file
-		// $file = $request->file('file');
- 
+        // $file = $request->file('file');
+
         //         // nama file
         // echo 'File Name: '.$file->getClientOriginalName();
         // echo '<br>';
@@ -135,7 +133,7 @@ class IbmController extends Controller
             'harga' => 'required'
         ]);
         Ibm::where('id', $ibm->id)
-        ->update($validatedData);
+            ->update($validatedData);
 
         return redirect('/')->with('success', 'Informasi Telah Diupdate!');
     }

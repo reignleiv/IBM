@@ -22,18 +22,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [IbmController::class, 'index']);
 Route::resource('/dashboard/ibm', IbmController::class);
-Route::get('/dashboard/ibm', function() {
+Route::get('/dashboard/ibm', function () {
     return view('dashboard.dashboardibm.index', [
-        'active' => 'ibm',
+        'active' => 'IBM',
         "title" => "Semua Informasi Bahan Makanan",
         "ibms" => Ibm::all()
     ]);
 });
+
+//Diskusi
 Route::get('/diskusi', [DiskusiController::class, 'index']);
 // halaman single diskusi
 Route::get('/diskusi{diskusi:slug}', [DiskusiController::class, 'show']);
 Route::resource('/dashboard/diskusi', DiskusiController::class);
-Route::get('/dashboard/diskusi', function() {
+Route::get('/dashboard/diskusi', function () {
     return view('dashboard.diskusi.index', [
         'active' => 'diskusi',
         "title" => "Semua Informasi Diskusi",

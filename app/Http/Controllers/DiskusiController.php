@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use App\Models\Diskusi;
 use App\Http\Requests\StoreDiskusiRequest;
 use App\Http\Requests\UpdateDiskusiRequest;
 
+
 class DiskusiController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +39,10 @@ class DiskusiController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.diskusi.create', [
+            'active' => 'diskusi',
+            "title" => "Diskusi Informasi Bahan Makanan"
+        ]);
     }
 
     /**
@@ -45,7 +53,18 @@ class DiskusiController extends Controller
      */
     public function store(StoreDiskusiRequest $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'slug' => 'required',
+            'body' => 'required',
+            'excerpt' => 'null',
+        ]);
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 100);
+        $validatedData['lokasi'] = Str::limit(strip_tags($request->body), 100);
+        $validatedData['user_id'] = auth()->user()->id;
+        Diskusi::create($validatedData);
+
+        return redirect('/')->with('success', 'Diskusi Baru Telah Ditambahkan');
     }
 
     /**
@@ -67,7 +86,11 @@ class DiskusiController extends Controller
      */
     public function edit(Diskusi $diskusi)
     {
-        //
+        return view('dashboard.diskusi.edit', [
+            'active' => 'diskusi',
+            "title" => 'Ubah Informasi Bahan Makanan',
+            "diskusis" => $diskusi
+        ]);
     }
 
     /**
@@ -79,7 +102,19 @@ class DiskusiController extends Controller
      */
     public function update(UpdateDiskusiRequest $request, Diskusi $diskusi)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'slug' => 'required',
+            'body' => 'required',
+            'excerpt' => 'null',
+        ]);
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 100);
+        $validatedData['lokasi'] = Str::limit(strip_tags($request->body), 100);
+        $validatedData['user_id'] = auth()->user()->id;
+        Diskusi::where('id', $diskusi->id)
+            ->update($validatedData);
+
+        return redirect('/')->with('success', 'Diskusi Telah Diupdate!');
     }
 
     /**
@@ -90,6 +125,7 @@ class DiskusiController extends Controller
      */
     public function destroy(Diskusi $diskusi)
     {
-        //
+        $diskusi::destroy($diskusi->id);
+        return redirect('/')->with('success', 'Diskusi Telah Berhasil Dihapus');
     }
 }
