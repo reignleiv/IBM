@@ -23,27 +23,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [IbmController::class, 'index']);
-<<<<<<< HEAD
 Route::resource('/dashboard/ibm', IbmController::class)->middleware('auth');
-=======
-Route::resource('/dashboard/ibm', IbmController::class);
->>>>>>> 30ca5c1867dabcbc70a25fd665e9543580191794
 Route::get('/dashboard/ibm', function () {
     return view('dashboard.dashboardibm.index', [
         'active' => 'IBM',
         "title" => "Semua Informasi Bahan Makanan",
         "ibms" => Ibm::all()
     ]);
-<<<<<<< HEAD
 })->middleware('auth');
-=======
-});
->>>>>>> 30ca5c1867dabcbc70a25fd665e9543580191794
 
 //Diskusi
 Route::get('/diskusi', [DiskusiController::class, 'index']);
 // halaman single diskusi
-<<<<<<< HEAD
 Route::get('/diskusi/{diskusi:slug}', [DiskusiController::class, 'show']);
 Route::resource('/dashboard/diskusi', DiskusiController::class)->middleware('auth');
 Route::get('/diskusi', function () {
@@ -57,16 +48,6 @@ Route::get('/diskusi', function () {
             "title" => "Diskusi",
             "diskusis" =>   $diskusi->get()
         ]);
-=======
-Route::get('/diskusi{diskusi:slug}', [DiskusiController::class, 'show']);
-Route::resource('/dashboard/diskusi', DiskusiController::class);
-Route::get('/dashboard/diskusi', function () {
-    return view('dashboard.diskusi.index', [
-        'active' => 'diskusi',
-        "title" => "Semua Informasi Diskusi",
-        "diskusis" => Diskusi::all()
-    ]);
->>>>>>> 30ca5c1867dabcbc70a25fd665e9543580191794
 });
 
 Route::resource('/dashboard/user', UserController::class)->middleware('auth');
@@ -93,19 +74,5 @@ Route::get('/register', [RegisterController::class, 'index'])->middleware('guest
 Route::post('/register', [RegisterController::class, 'store']);
 
 
-<<<<<<< HEAD
 
-=======
-Route::get('/komentar', [KomentarController::class, 'index']);
-// halaman single diskusi
-Route::get('/komentar{komentar:slug}', [KomentarController::class, 'show']);
-Route::resource('/dashboard/komentar', KomentarController::class);
-Route::get('/dashboard/komentar', function () {
-    return view('dashboard.komentar.index', [
-        'active' => 'komentar',
-        "title" => "Komentar",
-        "komentars" => Komentar::all()
-    ]);
-});
->>>>>>> 30ca5c1867dabcbc70a25fd665e9543580191794
 // require __DIR__.'/auth.php';

@@ -27,26 +27,11 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $komentar->body }}</td>
                         <td>
-<<<<<<< HEAD
                             <form action="/dashboard/komentar/{{ $komentar->id }}" method="post" class="d-inline">
                                 @method('delete')
                                 @csrf
                                 <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><span data-feather="x-circle" ></span></button>
                               </form>
-=======
-                            <a class="nav-link badge bg-info" href="/dashboard/diskusi/{{ $komentar->id }}"><span
-                                    data-feather="eye"></span>
-                            </a>
-                            <a class="badge bg-warning" href="/dashboard/diskusi/{{ $komentar->id }}/edit"><span
-                                    data-feather="edit"></span>
-                            </a>
-                            <form action="/dashboard/diskusi/{{ $komentar->id }}" method="post" class="d-inline">
-                                @method('delete')
-                                @csrf
-                                <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><span
-                                        data-feather="x-circle"></span></button>
-                            </form>
->>>>>>> 30ca5c1867dabcbc70a25fd665e9543580191794
                         </td>
                     </tr>
                 @endforeach
