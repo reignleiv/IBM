@@ -29,6 +29,7 @@
                 </article>
             </div>
         </div>
+<<<<<<< HEAD
     
     <div class="comments">
         <h3>Comments</h3>
@@ -40,6 +41,15 @@
             </button>
         </form>
         </div>
+=======
+    </div>
+    <div class="comments">
+        <h3>Comments</h3>
+        <form id="comment-form">
+            <textarea id="comment-text" placeholder="Write a comment..."></textarea>
+            <button type="submit">Komentar</button>
+        </form>
+>>>>>>> 30ca5c1867dabcbc70a25fd665e9543580191794
         
         <div id="comment-wrapper">
             @foreach ($komentars as $komentar)
@@ -62,7 +72,11 @@
                 @endforeach
             </div>
         </div>
+<<<<<<< HEAD
     </div>    
+=======
+        
+>>>>>>> 30ca5c1867dabcbc70a25fd665e9543580191794
     <script>
         $(document).ready(function() {
             $('form').submit(function(e) {
@@ -80,7 +94,10 @@
                     }),
                     data: {
                         user_id : {{Auth::user()->id }} , // get user id
+<<<<<<< HEAD
                         title : "hai",
+=======
+>>>>>>> 30ca5c1867dabcbc70a25fd665e9543580191794
                         body: comment , // get user comen
                         diskusi_id : currentDiskusId, //get current diskusi_id
                     },

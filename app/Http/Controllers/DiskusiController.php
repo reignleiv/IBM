@@ -5,10 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Models\Diskusi;
+use App\Models\Komentar;
 use App\Http\Requests\StoreDiskusiRequest;
 use App\Http\Requests\UpdateDiskusiRequest;
+<<<<<<< HEAD
 use App\Models\Komentar;
 use Illuminate\Support\Facades\DB;
+=======
+use Illuminate\Database\Eloquent\Builder;
+
+>>>>>>> 30ca5c1867dabcbc70a25fd665e9543580191794
 
 class DiskusiController extends Controller
 {
@@ -21,6 +27,7 @@ class DiskusiController extends Controller
      */
     public function index()
     {
+<<<<<<< HEAD
         $diskusi = Diskusi::latest()->where('user_id', '=', auth()->user()->id);
     if (request('search')) {
         $diskusi->where('title', 'like', '%' . request('search') . '%')
@@ -39,6 +46,18 @@ class DiskusiController extends Controller
         "title" => "Semua Informasi Diskusi",
         "diskusis" =>   $diskusi->get()
     ]);
+=======
+        // $ibm = Diskusi::all();
+        // if (request('lokasi')) {
+        //     $ibm = Diskusi::all()->where('lokasi', 'like', request('lokasi'));
+        // }
+
+        return view('diskusi', [
+            'active' => 'Diskusi',
+            "title" => "Diskusi",
+            "diskusis" => Diskusi::all()
+        ]);
+>>>>>>> 30ca5c1867dabcbc70a25fd665e9543580191794
     }
 
     /**
@@ -66,6 +85,7 @@ class DiskusiController extends Controller
             'title' => 'required|max:255',
             'slug' => 'required',
             'body' => 'required',
+<<<<<<< HEAD
             'lokasi' => 'required',
             'excerpt' => 'null'
         ]);
@@ -74,6 +94,16 @@ class DiskusiController extends Controller
         Diskusi::create($validatedData);
 
         return redirect('/dashboard/diskusi')->with('success', 'Diskusi Baru Telah Ditambahkan');
+=======
+            'excerpt' => 'null',
+        ]);
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 100);
+        $validatedData['lokasi'] = Str::limit(strip_tags($request->body), 100);
+        $validatedData['user_id'] = auth()->user()->id;
+        Diskusi::create($validatedData);
+
+        return redirect('/')->with('success', 'Diskusi Baru Telah Ditambahkan');
+>>>>>>> 30ca5c1867dabcbc70a25fd665e9543580191794
     }
 
     /**
@@ -82,13 +112,25 @@ class DiskusiController extends Controller
      * @param  \App\Models\Diskusi  $diskusi
      * @return \Illuminate\Http\Response
      */
-    public function show(Diskusi $diskusi)
+    public function show(Diskusi $diskusi, Komentar $komentar)
     {
+<<<<<<< HEAD
         return view("showdiskusi", [
             'active' => 'diskusi',
             "title" => 'Postingan',
             "diskusis" => $diskusi,
             "komentars" => Komentar::where('diskusi_id', $diskusi->id)->get(),
+=======
+        // Diskusi::where('id', $diskusi->id)
+        //     ->update($validatedData);
+
+
+        return view('dashboard.diskusi.show', [
+            'active' => 'diskusi',
+            "title" => 'Postingan',
+            "diskusis" => $diskusi,
+            'komentars' => Komentar::where('diskusi_id', $diskusi->id)->get(),
+>>>>>>> 30ca5c1867dabcbc70a25fd665e9543580191794
         ]);
     }
 
@@ -128,7 +170,11 @@ class DiskusiController extends Controller
         Diskusi::where('id', $diskusi->id)
             ->update($validatedData);
 
+<<<<<<< HEAD
         return redirect('/dashboard/diskusi')->with('success', 'Diskusi Telah Diupdate!');
+=======
+        return redirect('/')->with('success', 'Diskusi Telah Diupdate!');
+>>>>>>> 30ca5c1867dabcbc70a25fd665e9543580191794
     }
 
     /**
@@ -140,6 +186,10 @@ class DiskusiController extends Controller
     public function destroy(Diskusi $diskusi)
     {
         $diskusi::destroy($diskusi->id);
+<<<<<<< HEAD
         return redirect('/dashboard/diskusi')->with('success', 'Diskusi Telah Berhasil Dihapus');
+=======
+        return redirect('/')->with('success', 'Diskusi Telah Berhasil Dihapus');
+>>>>>>> 30ca5c1867dabcbc70a25fd665e9543580191794
     }
 }

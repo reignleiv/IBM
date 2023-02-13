@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Komentar;
 use App\Http\Requests\StoreKomentarRequest;
 use App\Http\Requests\UpdateKomentarRequest;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Log as FacadesLog;
+=======
+>>>>>>> 30ca5c1867dabcbc70a25fd665e9543580191794
 use Log;
 
 class KomentarController extends Controller
@@ -20,7 +23,11 @@ class KomentarController extends Controller
         // $komentar = Komentar::orderBy('created_at', 'DESC')->paginate(10);
         // return view('welcome', compact('posts'));
 
+<<<<<<< HEAD
         return view('dashboard.komentar.index', [
+=======
+        return view('komentar', [
+>>>>>>> 30ca5c1867dabcbc70a25fd665e9543580191794
             'active' => 'Komentar',
             "title" => "Informasi Komentar",
             "komentars" => Komentar::all()
