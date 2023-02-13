@@ -7,30 +7,34 @@
             Home
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link {{ Request::is('dashboard/ibm*') ? 'active' : '' }}" href="/dashboard/ibm">
-            <span data-feather="file-text" class="align-text-bottom"></span>
-            IBM
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {{ Request::is('dashboard/user*') ? 'active' : '' }}" href="/dashboard/user">
-            <span data-feather="file-text" class="align-text-bottom"></span>
-            User
-          </a>
-        </li>
+        @auth
+            @if (Auth()->user()->is_admin)
+              <li class="nav-item">
+                <a class="nav-link {{ Request::is('dashboard/ibm*') ? 'active' : '' }}" href="/dashboard/ibm">
+                  <span data-feather="file-text" class="align-text-bottom"></span>
+                  IBM
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {{ Request::is('dashboard/user*') ? 'active' : '' }}" href="/dashboard/user">
+                  <span data-feather="file-text" class="align-text-bottom"></span>
+                  User
+                </a>
+              </li>
+            @endif
+        @endauth
         <li class="nav-item">
           <a class="nav-link {{ Request::is('dashboard/diskusi*') ? 'active' : '' }}" href="/dashboard/diskusi">
             <span data-feather="file-text" class="align-text-bottom"></span>
             Diskusi
           </a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
           <a class="nav-link {{ Request::is('dashboard/komentar*') ? 'active' : '' }}" href="/dashboard/komentar">
             <span data-feather="file-text" class="align-text-bottom"></span>
             Komentar
           </a>
-        </li>
+        </li> --}}
       </ul>
       
 

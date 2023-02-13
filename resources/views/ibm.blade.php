@@ -7,11 +7,15 @@
         {{ session('success') }}
       </div>
     @endif
-    @if (auth()->user()->is_admin)
+
+    @auth
+      @if (auth()->user()->is_admin)
       <div class="table-responsive col-lg-8">
         <a href="/dashboard/ibm/create" class="btn btn-primary mb-3">Buat IBM Baru</a>
       </div>
-    @endif
+      @endif
+    @endauth
+
     <form action="">
     <div class="row container">
       <div class="col-12 col-lg-4">
@@ -45,13 +49,13 @@
             <div class="col-md-2 p-2">
                 <div class="card">
                         {{-- <img src="{{ asset('storage/' . $post->image) }}" class="card-img-top mt-3" alt="{{ $post->category->name }}">                 --}}
-                        <img src="{{ asset('storage/'. str_replace(' ', '_', strtolower($ibm->nama)) . '.jpg') }}" class="card-img-top" alt="{{ $ibm->nama }}">    
+                        <img src="{{ asset('storage/'. str_replace(' ', '_', strtolower($ibm->nama)) . '.jpg') }}" class="card-img-top" alt="{{ $ibm->nama }}" height="112" width="168">    
                     <div class="card-body">
                       <h6 class="card-text">{{ $ibm->nama }}</h6>
                       <h6 class="card-text">{{ $ibm->lokasi }}</h6>
                       <h6 class="card-text">{{ $ibm->satuan }}</h6>
                       <h6 class="card-text">{{ $ibm->harga }}</h6>
-                      @if (auth()->user()->is_admin)
+                      {{-- @if (auth()->user()->is_admin) --}}
                       <a class="badge bg-warning" href="/dashboard/ibm/{{ $ibm->slug }}/edit"><i class="bi bi-pencil-square"></i>
                       </a>
                         <form action="/dashboard/ibm/{{ $ibm->slug }}" method="post" class="d-inline">
@@ -59,7 +63,7 @@
                           @csrf
                           <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><i class="bi bi-trash"></i></button>
                         </form>
-                      @endif                     
+                      {{-- @endif                      --}}
                     </div>
                   </div>
                 </div>

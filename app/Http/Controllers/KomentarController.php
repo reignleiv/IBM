@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Komentar;
 use App\Http\Requests\StoreKomentarRequest;
 use App\Http\Requests\UpdateKomentarRequest;
+use Illuminate\Support\Facades\Log as FacadesLog;
+use Log;
 
 class KomentarController extends Controller
 {
@@ -15,7 +17,14 @@ class KomentarController extends Controller
      */
     public function index()
     {
-        //
+        // $komentar = Komentar::orderBy('created_at', 'DESC')->paginate(10);
+        // return view('welcome', compact('posts'));
+
+        return view('dashboard.komentar.index', [
+            'active' => 'Komentar',
+            "title" => "Informasi Komentar",
+            "komentars" => Komentar::all()
+        ]);
     }
 
     /**
@@ -23,7 +32,7 @@ class KomentarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(StoreKomentarRequest $request)
     {
         //
     }
@@ -36,7 +45,10 @@ class KomentarController extends Controller
      */
     public function store(StoreKomentarRequest $request)
     {
-        //
+        $input = $request->all();
+        Log::info($input);
+        Komentar::create($input);
+        return response()->json(['data' => $input]);
     }
 
     /**
@@ -47,10 +59,17 @@ class KomentarController extends Controller
      */
     public function show(Komentar $komentar)
     {
-        //
+        // $komentar = Komentar::with(['comments', 'comments.child'])->where('slug', $komentar)->first();
+        // return view('show', compact('komentar'));\
+
+        return view('dashboard.komentar.show', [
+            'active' => 'diskusi',
+            "title" => 'Postingan',
+            "komentars" => $komentar
+        ]);
     }
 
-    
+
 
     /**
      * Remove the specified resource from storage.
@@ -60,6 +79,9 @@ class KomentarController extends Controller
      */
     public function destroy(Komentar $komentar)
     {
-        //
+        $komentar::destroy($komentar->id);
+        return response()->json([
+            'success' => 'Record deleted successfully!'
+        ]);
     }
 }

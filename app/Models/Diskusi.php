@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 
 class Diskusi extends Model
@@ -21,5 +22,10 @@ class Diskusi extends Model
     public function komentar()
     {
         return $this->hasMany(Komentar::class);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }
